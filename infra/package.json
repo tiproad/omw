@@ -1,0 +1,13 @@
+{
+    "name": "@htn-2021/infra",
+    "version": "1.0.0",
+    "description": "Infrascructure for Hack The North 2021 project",
+    "devDependencies": {
+        "@types/node": "^10.0.0"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/aws": "^4.0.0",
+        "@pulumi/awsx": "^0.30.0"
+    }
+}
