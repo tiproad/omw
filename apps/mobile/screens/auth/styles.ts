@@ -1,0 +1,87 @@
+import { StyleSheet } from 'react-native';
+
+export default StyleSheet.create({
+  safeAreaContainer: {
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    flex: 1,
+  },
+  centeredContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingHorizontal: 20,
+    overflow: 'visible',
+    borderWidth: 2,
+    borderColor: 'red',
+    borderStyle: 'solid'
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingHorizontal: 20,
+    overflow: 'visible',
+
+  },
+  title: {
+    fontSize: 20,
+    color: '#202020',
+    fontWeight: '500',
+    marginVertical: 15,
+  },
+  forgotPasswordButtonContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  forgotPasswordButtonText: {
+    color: '#6425C7',
+    fontSize: 18,
+    fontWeight: '600',
+    textDecorationStyle: 'solid',
+    textDecorationLine: 'underline',
+    textDecorationColor: '#6425C7',
+  },
+  inputContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+  inputLabel: {
+    fontSize: 18,
+    textAlign: 'left',
+    alignItems: 'flex-start',
+  },
+  inputError: {
+    display: 'flex',
+    fontSize: 12,
+    color: 'red',
+  },
+  submitButtonContainer: {
+    width: '100%',
+    marginTop: 15,
+  },
+  footerButtonContainer: {
+    marginVertical: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  passwordRequirementsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  passwordRequirementsBody: {
+    fontSize: 16,
+  },
+  passwordRequirementsContainer: {
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    padding: 10,
+    elevation: 2,
+  },
+  cognitoError: {
+    color: 'red',
+  },
+});

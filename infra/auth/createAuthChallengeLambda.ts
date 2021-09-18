@@ -1,16 +1,20 @@
 import * as aws from "@pulumi/aws";
 import { CreateAuthChallengeTriggerEvent } from 'aws-lambda';
 import { randomDigits } from 'crypto-secure-random-digit';
-import { SNS } from 'aws-sdk';
-
-const sns = new SNS();
+import * as AWS from 'aws-sdk';
 
 async function sendText(phoneNumber: string, secretLoginCode: string) {
-    const params: SNS.PublishInput = {
+    const params: AWS.SNS.PublishInput = {
         Message: `Your login code for HTN 2021 is ${secretLoginCode}}`,
-        PhoneNumber: phoneNumber
+        PhoneNumber: phoneNumber,
+        MessageAttributes: {
+            'AWS.SNS.SMS.SMSType': {
+                DataType: "String",
+                StringValue: "Transactional"
+            }
+        }
     };
-    await sns.publish(params).promise();
+    await new AWS.SNS({ apiVersion: '2010-03-31', region: 'us-east-1' }).publish(params).promise()
 }
 
 const lambda = new aws.lambda.CallbackFunction<CreateAuthChallengeTriggerEvent, CreateAuthChallengeTriggerEvent>(`cognito-create-auth-challenge`, {
@@ -21,7 +25,7 @@ const lambda = new aws.lambda.CallbackFunction<CreateAuthChallengeTriggerEvent, 
             // This is a new auth session
             // Generate a new secret login code and mail it to the user
             secretLoginCode = randomDigits(6).join('');
-            await sendText(event.request.userAttributes.email, secretLoginCode);
+            await sendText(event.request.userAttributes.phone_number, secretLoginCode);
 
         } else {
 
@@ -34,7 +38,7 @@ const lambda = new aws.lambda.CallbackFunction<CreateAuthChallengeTriggerEvent, 
         }
 
         // This is sent back to the client app
-        event.response.publicChallengeParameters = { email: event.request.userAttributes.email };
+        event.response.publicChallengeParameters = { phone_number: event.request.userAttributes.phone_number };
 
         // Add the secret login code to the private challenge parameters
         // so it can be verified by the "Verify Auth Challenge Response" trigger

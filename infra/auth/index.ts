@@ -7,7 +7,6 @@ import createAuthChallengeLambda from "./createAuthChallengeLambda"
 import defineAuthChallengeLambda from "./defineAuthChallengeLambda"
 // import preSignUpLambda from "./preSignUpLambda"
 import verifyAuthChallengeResponseLambda from "./verifyAuthChallengeResponseLambda"
-import postAuthenticationLambda, { role as postAuthenticationRole } from "./postAuthenticationLambda"
 
 export const snsRole = new aws.iam.Role("cognito-sns-role", {
     assumeRolePolicy: JSON.stringify({
@@ -53,7 +52,7 @@ export const userPool = new aws.cognito.UserPool("htn2021", {
     usernameConfiguration: {
         caseSensitive: true
     },
-    schemas: ["family_name", "given_name", "phone_number"].map(x => ({
+    schemas: ["phone_number"].map(x => ({
         attributeDataType: "String",
         name: x,
         required: true
@@ -80,7 +79,6 @@ export const userPool = new aws.cognito.UserPool("htn2021", {
         defineAuthChallenge: defineAuthChallengeLambda.arn,
         // preSignUp: preSignUpLambda.arn,
         verifyAuthChallengeResponse: verifyAuthChallengeResponseLambda.arn,
-        postAuthentication: postAuthenticationLambda.arn,
     }
 });
 
@@ -97,11 +95,6 @@ export const userAttributesPolicy = new aws.iam.Policy("allow-set-user-attribute
         ]
     })),
 })
-
-export const attachUserAttributesPolicy = new aws.iam.RolePolicyAttachment("attach-user-attributes-policy", {
-    role: postAuthenticationRole.name,
-    policyArn: userAttributesPolicy.arn,
-});
 
 export const allowCreateAuthChallengeLambda = new aws.lambda.Permission("AllowCreateAuthChallengeLambda", {
     action: "lambda:InvokeFunction",
@@ -127,13 +120,6 @@ export const allowDefineAuthChallengeLambda = new aws.lambda.Permission("AllowDe
 export const allowVerifyAuthChallengeResponseLambda = new aws.lambda.Permission("AllowVerifyAuthChallengeResponseLambda", {
     action: "lambda:InvokeFunction",
     function: verifyAuthChallengeResponseLambda.name,
-    principal: "cognito-idp.amazonaws.com",
-    sourceArn: userPool.arn,
-});
-
-export const allowPostAuthenticationLambda = new aws.lambda.Permission("AllowPostAuthenticationLambda", {
-    action: "lambda:InvokeFunction",
-    function: postAuthenticationLambda.name,
     principal: "cognito-idp.amazonaws.com",
     sourceArn: userPool.arn,
 });
