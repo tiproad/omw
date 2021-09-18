@@ -1,0 +1,16 @@
+{
+    "name": "@htn-2021/root",
+    "description": "Enabling safer transportation for students",
+    "version": "1.0.0",
+    "repository": "https://github.com/EthanOrlander/htn-2021",
+    "author": "Ethan Orlander <ethanorlander@gmail.com>",
+    "license": "MIT",
+    "private": "true",
+    "workspaces": {
+        "packages": [
+            "apps/*",
+            "backend",
+            "infra"
+        ]
+    }
+}
