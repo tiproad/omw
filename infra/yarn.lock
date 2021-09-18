@@ -224,6 +224,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
+crypto-secure-random-digit@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/crypto-secure-random-digit/-/crypto-secure-random-digit-1.0.9.tgz#df27ecb69461e102a7c11fa50acc806191398bd5"
+  integrity sha512-0jKZnjMf5lWYUdtu611xEdRCqMBD4xils04cGU5+5+50NyJ+DC2soGaLCVPTYAssK80NkPYHF2tlHjegGKSbcQ==
+
 debuglog@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/debuglog/-/debuglog-1.0.1.tgz#aa24ffb9ac3df9a2351837cfb2d279360cd78492"
