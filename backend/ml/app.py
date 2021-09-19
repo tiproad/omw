@@ -26,8 +26,8 @@ def safe_routes():
     lat1, lng1 = con_gps(orig)
     lat2, lng2 = con_gps(dest)
     idx, loc = calc_idx(lat1, lng1, lat2, lng2)
-    res = [(lat1, lng1)] + [(loc[i, 0], loc[i, 1]) for i in idx] + [(lat2, lng2)]
-    return jsonify(dict(res=str(res))), 200
+    res = [[lat1, lng1]] + [[loc[i, 0], loc[i, 1]] for i in idx] + [[lat2, lng2]]
+    return jsonify(dict(res=res)), 200
 
 
 if __name__ == "__main__":

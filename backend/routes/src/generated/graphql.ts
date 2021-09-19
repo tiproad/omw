@@ -20,9 +20,21 @@ export type Scalars = {
 
 
 
+export type Coordinate = {
+  __typename?: 'Coordinate';
+  lat: Scalars['Float'];
+  lng: Scalars['Float'];
+};
+
+export type CreateRouteInput = {
+  origin: Scalars['String'];
+  dest: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   route?: Maybe<Route>;
+  createRoute?: Maybe<Route>;
 };
 
 
@@ -30,9 +42,15 @@ export type QueryRouteArgs = {
   id?: Maybe<Scalars['ID']>;
 };
 
+
+export type QueryCreateRouteArgs = {
+  data?: Maybe<CreateRouteInput>;
+};
+
 export type Route = {
   __typename?: 'Route';
   id: Scalars['ID'];
+  waypoints: Array<Coordinate>;
 };
 
 
@@ -130,33 +148,48 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Coordinate: ResolverTypeWrapper<Coordinate>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  CreateRouteInput: CreateRouteInput;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Route: ResolverTypeWrapper<Route>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Coordinate: Coordinate;
+  Float: Scalars['Float'];
+  CreateRouteInput: CreateRouteInput;
+  String: Scalars['String'];
   Query: {};
   ID: Scalars['ID'];
   Route: Route;
   Boolean: Scalars['Boolean'];
-  String: Scalars['String'];
+};
+
+export type CoordinateResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Coordinate'] = ResolversParentTypes['Coordinate']> = {
+  lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  lng?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   route?: Resolver<Maybe<ResolversTypes['Route']>, ParentType, ContextType, RequireFields<QueryRouteArgs, never>>;
+  createRoute?: Resolver<Maybe<ResolversTypes['Route']>, ParentType, ContextType, RequireFields<QueryCreateRouteArgs, never>>;
 };
 
 export type RouteResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Route'] = ResolversParentTypes['Route']> = {
   __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Route']>, { __typename: 'Route' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  waypoints?: Resolver<Array<ResolversTypes['Coordinate']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = Context> = {
+  Coordinate?: CoordinateResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Route?: RouteResolvers<ContextType>;
 };
