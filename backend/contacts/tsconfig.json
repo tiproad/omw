@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        // "strict": true,
+        "composite": true,
+        "esModuleInterop": true,
+        "outDir": "lib",
+        "rootDir": "src",
+        "lib": [
+            "es2020",
+            "es5",
+            "dom"
+        ],
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "lib",
+        "node_module"
+    ]
+}

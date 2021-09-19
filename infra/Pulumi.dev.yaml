@@ -4,3 +4,6 @@ config:
   infra:route_db_name: routes
   infra:route_db_password: makethispasswordsecretlater
   infra:route_db_username: routes
+  infra:contact_db_name: contacts
+  infra:contact_db_password: makethispasswordsecretlater
+  infra:contact_db_username: contacts

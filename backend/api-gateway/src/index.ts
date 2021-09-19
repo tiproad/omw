@@ -7,12 +7,14 @@ dotenv.config();
 const {
   PORT = 4000,
   ROUTES_ENDPOINT = "http://localhost:4001/graphql",
+  CONTACTS_ENDPOINT = "http://localhost:4002/graphql",
 } = process.env;
 
 (() => {
   const gateway = new ApolloGateway({
     serviceList: [
       { name: "routes-api", url: ROUTES_ENDPOINT },
+      { name: "contacts-api", url: CONTACTS_ENDPOINT },
     ],
   });
 

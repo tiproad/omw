@@ -11,9 +11,12 @@ import { Auth } from 'aws-amplify';
 import useUpdateAuthState from '../../../hooks/updateAuthState/useUpdateAuthState';
 import { Theme } from '../../../hooks/theme/Theme';
 import useTheme from '../../../hooks/theme/useTheme';
+import { EvilIcons } from '@expo/vector-icons';
+import EmergencyContactsStack from '../emergency-contacts/EmergencyContactsStack';
 
 export type IDrawerRoutes = {
   MapNavigator: undefined;
+  EmergencyContacts: undefined;
 };
 
 const DrawerNavigator = createDrawerNavigator<IDrawerRoutes>();
@@ -34,6 +37,14 @@ const DrawerContent: React.FC<DrawerContentComponentProps<DrawerContentOptions>>
     <View style={{ flex: 1 }}>
       <View style={{ height: '90%' }}>
         <DrawerContentScrollView {...props}>
+        <TouchableOpacity
+            style={styles.contactUsContainer}
+            onPress={() => {
+              props.navigation.navigate('EmergencyContacts');
+            }}>
+            <EvilIcons name={'user'} size={30} color={'black'} />
+            <Text style={styles.drawerText}>Emergency Contacts</Text>
+          </TouchableOpacity>
         </DrawerContentScrollView>
       </View>
 
@@ -50,6 +61,8 @@ const Drawer: React.FC = () => {
       initialRouteName="MapNavigator"
       drawerContent={(props) => <DrawerContent {...props} />}>
       <DrawerNavigator.Screen name="MapNavigator" component={MainNavigator} />
+      <DrawerNavigator.Screen name="EmergencyContacts" component={EmergencyContactsStack} />
+
     </DrawerNavigator.Navigator>
   );
 };

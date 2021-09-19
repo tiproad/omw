@@ -6,6 +6,9 @@ const config = new pulumi.Config();
 const routeDbName = config.require("route_db_name");
 const routeDbUsername = config.require("route_db_username");
 const routeDbPassword = config.require("route_db_password");
+const contactDbName = config.require("contact_db_name");
+const contactDbUsername = config.require("contact_db_username");
+const contactDbPassword = config.require("contact_db_password");
 
 // Step 1: Create an ECS Fargate cluster.
 export const cluster = new awsx.ecs.Cluster("cluster");
@@ -38,6 +41,11 @@ export const ntgRouteServiceListener = nlb.createListener("net-lb-route", {
     protocol: "TCP",
 });
 
+export const ntgContactServiceListener = nlb.createListener("net-lb-contact", {
+    port: 4002,
+    protocol: "TCP",
+});
+
 export const ntgMlServiceListener = nlb.createListener("net-lb-ml", {
     port: 5000,
     protocol: "TCP",
@@ -47,6 +55,11 @@ export const ntgMlServiceListener = nlb.createListener("net-lb-ml", {
 export const routeServiceImage = awsx.ecs.Image.fromDockerBuild("route-service", {
     context: "../",
     dockerfile: "../backend/routes/Dockerfile",
+});
+
+export const contactServiceImage = awsx.ecs.Image.fromDockerBuild("contact-service", {
+    context: "../",
+    dockerfile: "../backend/contacts/Dockerfile",
 });
 
 export const mlServiceImage = awsx.ecs.Image.fromDockerBuild("ml-service", {
@@ -77,8 +90,21 @@ export const routeDb = new aws.rds.Instance("route-db", {
     skipFinalSnapshot: true,
 });
 
+export const contactDb = new aws.rds.Instance("contact-db", {
+    engine: "postgres",
+    instanceClass: aws.rds.InstanceTypes.T3_Micro,
+    allocatedStorage: 5,
+    dbSubnetGroupName: subnetGroup.id,
+    vpcSecurityGroupIds: cluster.securityGroups.map((g) => g.id),
+    name: contactDbName,
+    username: contactDbUsername,
+    password: contactDbPassword,
+    skipFinalSnapshot: true,
+});
+
 // Assemble connection strings for the databases
 export const routeDbConnectionString = pulumi.interpolate`postgres://${routeDbUsername}:${routeDbPassword}@${routeDb.endpoint}/routes?schema=public&sslmode=disable`;
+export const contactDbConnectionString = pulumi.interpolate`postgres://${contactDbUsername}:${contactDbPassword}@${contactDb.endpoint}/contacts?schema=public&sslmode=disable`;
 
 // Step 5: Create a Fargate service task that can scale out.
 export const fargateService = new awsx.ecs.FargateService("api", {
@@ -93,6 +119,19 @@ export const fargateService = new awsx.ecs.FargateService("api", {
                     command: [
                         "CMD-SHELL",
                         "curl --fail http://localhost:4001/.well-known/apollo/server-health/ || exit 1",
+                    ],
+                    startPeriod: 30,
+                    retries: 10,
+                },
+            },
+            contactService: {
+                image: contactServiceImage,
+                portMappings: [ntgContactServiceListener],
+                environment: [{ name: "DATABASE_URL", value: contactDbConnectionString }],
+                healthCheck: {
+                    command: [
+                        "CMD-SHELL",
+                        "curl --fail http://localhost:4002/.well-known/apollo/server-health/ || exit 1",
                     ],
                     startPeriod: 30,
                     retries: 10,
