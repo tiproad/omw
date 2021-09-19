@@ -17,12 +17,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyC2VHa0suGl7o0pG6-xpIZpbFv2fadBsEY"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC2VHa0suGl7o0pG6-xpIZpbFv2fadBsEY"
+        }
       }
     },
     "web": {

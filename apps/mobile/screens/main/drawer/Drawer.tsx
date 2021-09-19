@@ -9,7 +9,7 @@ import {
 import MainNavigator from '../MapNavigator';
 import { Auth } from 'aws-amplify';
 import useUpdateAuthState from '../../../hooks/updateAuthState/useUpdateAuthState';
-import { Theme } from '../../../hooks/theme/Theme';
+import { Theme } from '../../../hooks/theme/theme';
 import useTheme from '../../../hooks/theme/useTheme';
 
 export type IDrawerRoutes = {

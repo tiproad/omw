@@ -30,12 +30,16 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-get-random-values": "~1.7.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.4",
+    "react-native-maps": "0.28.0",
     "react-native-pager-view": "5.0.12",
+    "react-native-paper": "^4.9.2",
     "react-native-phone-number-input": "^2.1.0",
+    "react-native-ratings": "^8.1.0",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-web": "~0.13.12",
+    "rn-sliding-up-panel": "^2.4.5",
     "yup": "^0.32.9"
   },
   "devDependencies": {

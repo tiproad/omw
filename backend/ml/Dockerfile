@@ -34,7 +34,7 @@ RUN . $HOME/.poetry/env && \
     poetry install
 
 COPY *.py .
-COPY data /htn/data
-COPY models /htn/models
+COPY ./data /htn/data
+COPY ./models /htn/models
 
 ENTRYPOINT ["python", "/htn/app.py"]
