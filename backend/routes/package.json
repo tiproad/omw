@@ -1,0 +1,45 @@
+{
+  "name": "@htn-2021/routes",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Ethan Orlander <ethanorlander@gmail.com>",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "test:staged": "jest --bail --findRelatedTests",
+    "dev": "nodemon",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate",
+    "gqlgen": "graphql-codegen --config graphql-codegen.yml",
+    "build": "tsc -b",
+    "start": "node ./lib/index.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.21.5",
+    "@graphql-codegen/typescript": "^1.22.1",
+    "@graphql-codegen/typescript-document-nodes": "^1.17.12",
+    "@graphql-codegen/typescript-resolvers": "^1.19.2",
+    "@types/express-serve-static-core": "^4.17.21",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.7",
+    "prisma": "^2.24.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "@apollo/federation": "^0.25.1",
+    "@aws-sdk/client-eventbridge": "^3.18.0",
+    "@prisma/client": "^2.24.1",
+    "apollo-server": "^2.25.1",
+    "apollo-server-express": "^2.25.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0"
+  },
+  "resolutions": {
+    "graphql": "^15.5.0"
+  }
+}
