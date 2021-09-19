@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "ml-backend"
+version = "0.1.0"
+description = ""
+authors = ["Aaron Pham <aaronpham0103@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1,<3.11"
+python-dotenv = "^0.19.0"
+pyspark = "^3.1.2"
+googlemaps = "^4.5.3"
+joblib = "^1.0.1"
+Flask = "^2.0.1"
+numpy = "^1.21.2"
+gmaps = "^0.9.0"
+
+[tool.poetry.dev-dependencies]
+pandas = "^1.3.3"
+black = "^21.9b0"
+isort = "^5.9.3"
+pylint = "^2.11.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.tox
+    | \.venv
+    | _build
+    | build
+    | dist
+    | examples
+    | guides
+  )/
+)
+'''
