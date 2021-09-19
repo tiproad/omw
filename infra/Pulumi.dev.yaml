@@ -1,3 +1,6 @@
 config:
   aws:profile: htn-2021
   aws:region: us-east-1
+  infra:route_db_name: routes
+  infra:route_db_password: makethispasswordsecretlater
+  infra:route_db_username: routes

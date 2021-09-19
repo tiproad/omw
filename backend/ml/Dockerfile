@@ -20,11 +20,11 @@ VOLUME ["/htn"]
 COPY pyproject.toml .
 
 RUN if [ ! -e /usr/bin/pip ]; then \
-        ln -s pip3 /usr/bin/pip; \
+    ln -s pip3 /usr/bin/pip; \
     fi
 
 RUN if [ ! -e /usr/bin/python ]; then \
-        ln -sf /usr/bin/python3 /usr/bin/python; \
+    ln -sf /usr/bin/python3 /usr/bin/python; \
     fi
 
 RUN python -m pip install --upgrade pip setuptools
@@ -36,5 +36,7 @@ RUN . $HOME/.poetry/env && \
 COPY *.py .
 COPY ./data /htn/data
 COPY ./models /htn/models
+
+EXPOSE 5000
 
 ENTRYPOINT ["python", "/htn/app.py"]
