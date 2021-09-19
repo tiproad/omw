@@ -11,7 +11,7 @@ export default gql`
   
   type Coordinate {
     lat: Float!
-    long: Float!
+    lng: Float!
   }
 
   type Query {

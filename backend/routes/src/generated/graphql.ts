@@ -23,7 +23,7 @@ export type Scalars = {
 export type Coordinate = {
   __typename?: 'Coordinate';
   lat: Scalars['Float'];
-  long: Scalars['Float'];
+  lng: Scalars['Float'];
 };
 
 export type CreateRouteInput = {
@@ -172,7 +172,7 @@ export type ResolversParentTypes = {
 
 export type CoordinateResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Coordinate'] = ResolversParentTypes['Coordinate']> = {
   lat?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  long?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  lng?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

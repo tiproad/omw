@@ -12,7 +12,7 @@ const Query: QueryResolvers = {
     console.log(res.data);
     return {
       id: "gibberish",
-      waypoints: res.data.res
+      waypoints: res.data.res.map(cord => ({lat: cord[0], lng:cord[1]}))
     }
   }
 };
