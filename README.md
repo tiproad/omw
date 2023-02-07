@@ -1,6 +1,6 @@
 # omw
 
-Hack The North 2021 submission
+Hack The North 2021 (University of Waterloo) winning submission
 
 https://devpost.com/software/twogether
 
